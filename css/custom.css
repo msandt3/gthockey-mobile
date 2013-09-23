@@ -1,0 +1,11 @@
+.center-table{
+	margin:0 auto;
+}
+
+.center-table td,
+.center-table th{
+	text-align: center;
+}
+.center-table > td{
+	text-align: center;
+}
