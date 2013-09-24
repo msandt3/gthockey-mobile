@@ -14,9 +14,17 @@
 
 
 	<script type="text/javascript">
-		$(document).ready(function(){
-			$("#schedule-link").click(function(event){
 
+		$( document ).bind( 'mobileinit', function(){
+			$.mobile.loader.prototype.options.text = "loading";
+			$.mobile.loader.prototype.options.textVisible = false;
+			$.mobile.loader.prototype.options.theme = "a";
+			$.mobile.loader.prototype.options.html = "";
+		});
+
+		$(document).ready(function(){
+
+			$("#schedule-link").click(function(event){
 				$.ajax({
 					type: "GET",
 					url: "http://www.gthockey.com/api/schedule.php",
@@ -24,25 +32,87 @@
 					cache: "false",
 					crossDomain: "true",
 					processData: "true",
-
+					beforeSend: function(){
+						$.mobile.loading('show');
+						$(".ui-loader").css('display','block');
+					},
+					complete: function(){
+						$.mobile.loading('hide');
+						$(".ui-loader").css('display','none');
+					},
 					success: function(data){
-						console.log(data);
-						console.log(JSON.stringify(data));
+						//for each item : data
+							//create <td>date
+							//create <th>time
+							//create 
+
+						fillScheduleRows(data);
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown){
 						console.log("ERROR!");
 					}
-				});
-
-				
+				});	
 			});
 			$("#roster-link").click(function(event){
-				console.log("Ajax Request for Roster Data");
+				$.mobile.loading('show');
+				$.ajax({
+					type: "GET",
+					url: "http://www.gthockey.com/api/roster.php",
+					dataType: "jsonp",
+					cache: "false",
+					crossDomain: "true",
+					processData: "true",
+					beforeSend: function(){
+						$.mobile.loading('show');
+						$(".ui-loader").css('display','block');
+					},
+					complete: function(){
+						$.mobile.loading('hide');
+						$(".ui-loader").css('display','none');
+					},
+					success: function(data){
+						console.log(data);
+						//for each item : data
+							//create <td>date
+							//create <th>time
+							//create 
+						fillRosterRows(data);
+
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown){
+						console.log("ERROR!");
+						console.log(XMLHttpRequest);
+						console.log(textStatus);
+						console.log(errorThrown);
+					}
+				});	
 			});
 
 			$("#statistics-link").click(function(event){
 				console.log("Ajax Request for Statistics Data");
 			});
+
+			function fillScheduleRows(jsonData){
+				$.each(jsonData, function(i,item){
+
+					//append a tr to the tbod
+					if(item.home == 0){
+						var opponent = item.opponent;
+					}
+					else{
+						var opponent = "@"+item.opponent;
+					}
+					//append the row to the table
+					$("#schedule-table tbody:last").append("<tr><th data-priority=1>"+item.date+"</th><td data-priority=2>"+item.time+"</td><td data-priority=3>"+opponent+"</td><td data-priority=4>TBA</td></tr>");
+				});
+			}
+
+			function fillRosterRows(jsonData){
+				$.each(jsonData, function(i,item){
+					//append the row to the table
+					$("#roster-table tbody:last").append("<tr><th data-priority=1>"+item.number+"</th><td data-priority=2>"+item.name+"</td><td data-priority=3>"+item.position+"</td></tr>");
+				});
+			}
 		});
 	</script>
 
@@ -59,14 +129,19 @@
 				<h1>Georgia Tech Hockey</h1>
 			</div>
 			<div data-role="content" data-theme="a">
-				<ul data-role="listview" data-inset="true">
+				<ul id="team-list" data-role="listview" data-inset="true">
 				    <li><a id="schedule-link" href="#schedule">Schedule</a></li>
 				    <li><a id="roster-link" href="#roster">Roster</a></li>
 				    <li><a id="statistics-link" href="#statistics">Statistics</a></li>
 				</ul>
+				<ul id="contact-list" data-role="listview" data-inset="true">
+					<li><a id="about-link" href="#about">About</a></li>
+					<li><a id="contact-link" href="#contact">Contact</a></li>
+					<li><a id="disclaimer-link" href="#disclaimer">Disclaimer</a></li>
+				</ul>
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="a">
-				<h2>About | Contact | Disclaimer</h2>
+				<h2> </h2>
 			</div>
 		</div>
 
@@ -86,29 +161,11 @@
 					    </tr>
 				  	</thead>
 				  	<tbody>
-					  	<tr>
-					      <th>9/15/13</th>
-					      <td><a href="#">@Auburn</a></td>
-					      <td>1:00 PM</td>
-					      <td>PPD</td>
-					    </tr>
-					    <tr>
-					      <th>9/20/13</th>
-					      <td><a href="#">UNC Charlotte</a></td>
-					      <td>10:00 PM</td>
-					      <td>W 4-3</td>
-					    </tr>
-					    <tr>
-					      <th>9/21/13</th>
-					      <td><a href="#">UNC Charlotte</a></td>
-					      <td>9:00 PM</td>
-					      <td>W 2-1</td>
-					    </tr>
 				  	</tbody>
 				</table>
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="a">
-				<h2>About | Contact | Disclaimer</h2>
+				<h2> </h2>
 			</div>
 		</div>
 
@@ -126,26 +183,11 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				  	<tr>
-				      <th>3</th>
-				      <td><a href="#">Michael McKinney</a></td>
-				      <td>Forward</td>
-				    </tr>
-				    <tr>
-				      <th>14</th>
-				      <td><a href="#">JS Sandt</a></td>
-				      <td>Forward</td>
-				    </tr>
-				    <tr>
-				      <th>30</th>
-				      <td><a href="#">CJ Layer</a></td>
-				      <td>Goaltender</td>
-				    </tr>
 				  </tbody>
 				</table>
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="a">
-				<h2>About | Contact | Disclaimer</h2>
+				<h2> </h2>
 			</div>
 		</div>
 
@@ -158,7 +200,7 @@
 			<div data-role="content" data-theme="a">
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="a">
-				<h2>About | Contact | Disclaimer</h2>
+				<h2> </h2>
 			</div>
 		</div>
 
