@@ -52,19 +52,7 @@
 			<div data-role="header" data-position="inline">
 				<h1>Roster</h1>
 			</div>
-			<div data-role="content" data-theme="a">
-				<table data-role="content" class="center-table" id="roster-table" data-mode="reflow" class="ui-responsive table-stroke">
-				  <thead>
-				    <tr>
-				      <th data-priority="1">Number</th>
-				      <th data-priority="2">Name</th>
-				      <th data-priority="3">Position</th>
-				      <th></th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  </tbody>
-				</table>
+			<div data-role="content" data-theme="a" id="roster-content">
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="a">
 				<h2> </h2>
@@ -116,9 +104,33 @@
 				<tr>
 					<td><%= game.get('date') %></td>
 					<td><%= game.get('time') %></td>
-					<td><%= game.get('opponent') %></td>
+					<td><%= game.get('home') == 1 ? game.get('opponent') : "@"+game.get('opponent') %></td>
 					<td><%= game.get('gtf') %></td>
 					<td><%= game.get('opponentf') %></td>
+					<td><a href="#" data-role="button" data-icon="info"></a></td>
+				</tr>
+			<% }); %> 
+		</tbody>
+	</table>
+	</script>
+
+	<script type="text/template" id="roster-template">
+	<table data-role="content" class="center-table" id="roster-table" class="table-stroke">
+		<thead>
+			<tr>
+				<th>Number</th>
+				<th>Name</th>
+				<th>Position</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+			<% _.each(players, function(player){ %>
+				<tr>
+					<td><%= player.get('number') %></td>
+					<td><%= player.get('name') %></td>
+					<td><%= player.get('position') %></td>
 					<td><a href="#" data-role="button" data-icon="info"></a></td>
 				</tr>
 			<% }); %> 
@@ -145,6 +157,10 @@
 			url: '/schedule.php'
 		});
 
+		var Players = Backbone.Collection.extend({
+			url: '/roster.php'
+		});
+
 		//Views
 		var Schedule = Backbone.View.extend({
 			el: '#schedule-content',
@@ -152,15 +168,37 @@
 				var that = this;
 				var games = new Games();
 				games.fetch({
+					beforeSend: function(){
+						$(".ui-loader").css('display','block');
+					},
 					success: function(games){
-						//console.log(games.models);
+						$(".ui-loader").css('display','none');
 						var template = _.template($('#schedule-template').html(), {games:games.models});
 						that.$el.html(template);
-						console.log($('#schedule-table a[data-role=button]'))
-						// $('#schedule-table a[data-role=button]').trigger('create');
 						$('#schedule-table a[data-role=button]').button();
 					}
 				});
+			}
+		});
+
+		var Roster = Backbone.View.extend({
+			el: '#roster-content',
+			render: function(){
+				var that = this;
+				var players = new Players();
+				players.fetch({
+					beforeSend: function(){
+						$(".ui-loader").css('display','block');
+					},
+					success: function(players){
+						//set up template
+						$(".ui-loader").css('display','none');
+						var template =  _.template($('#roster-template').html(), {players:players.models});
+						that.$el.html(template);
+						$('#roster-table a[data-role=button]').button();
+					}
+				});
+				
 			}
 		});
 
@@ -171,7 +209,8 @@
 		var Router = Backbone.Router.extend({
 			routes: {
 				'': 'home',
-				'schedule': 'schedule'
+				'schedule': 'schedule',
+				'roster': 'roster'
 			}
 		});
 
@@ -180,6 +219,7 @@
 		//Declarations 
 		var router = new Router();
 		var scheduleView = new Schedule();
+		var rosterView = new Roster();
 
 
 
@@ -190,7 +230,11 @@
 
 		router.on('route:schedule',function(){
 			scheduleView.render();
-		})
+		});
+
+		router.on('route:roster',function(){
+			rosterView.render();
+		});
 
 		Backbone.history.start();
 
