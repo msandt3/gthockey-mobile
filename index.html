@@ -39,6 +39,7 @@
 
 		<div id="schedule" data-role="page" data-theme="a" data-add-back-btn="true">
 			<div data-role="header" data-position="inline">
+				<a href="#" data-rel="back" data-icon="arrow-l">Back</a>
 				<h1>Schedule</h1>
 			</div>
 			<div data-role="content" data-theme="a" id="schedule-content">
@@ -50,6 +51,7 @@
 
 		<div id="roster" data-role="page" data-theme="a" data-add-back-btn="true">
 			<div data-role="header" data-position="inline">
+				<a href="#" data-rel="back" data-icon="arrow-l">Back</a>
 				<h1>Roster</h1>
 			</div>
 			<div data-role="content" data-theme="a" id="roster-content">
@@ -63,6 +65,7 @@
 		<!-- We'll see how this fleshes out -->
 		<div id="statistics" data-role="page" data-theme="a" data-add-back-btn="true">
 			<div data-role="header" data-position="inline">
+				<a href="#" data-rel="back" data-icon="arrow-l">Back</a>
 				<h1>Statistics</h1>
 			</div>
 			<div data-role="content" data-theme="a">
@@ -75,6 +78,7 @@
 
 		<div id="about" data-role="page" data-theme="a" data-add-back-btn="true">
 			<div data-role="header" data-position="inline">
+				<a href="#" data-rel="back" data-icon="arrow-l">Back</a>
 				<h1>About</h1>
 			</div>
 			<div data-role="content" data-theme="a" data-inset="true">
@@ -85,58 +89,105 @@
 			</div>
 		</div>
 
+
+		<div id="game" data-role="page" data-theme="a" data-add-back-btn="true">
+			<div data-role="header" data-position="inline">
+				<a href="#schedule" data-rel="back" data-icon="arrow-l">Back</a>
+				<h1>Game Info</h1>
+			</div>
+			<div data-role="content" data-theme="a" data-inset="true" id="game-content">
+				<p>Game Info Goes Here</p>
+			</div>
+			<div data-role="footer" data-position="fixed" data-theme="a">
+				<h2> </h2>
+			</div>
+		</div>
+
+
+		<div id="player" data-role="page" data-theme="a" data-add-back-btn="true">
+			<div data-role="header" data-position="inline">
+				<a href="#roster" data-rel="back" data-icon="arrow-l">Back</a>
+				<h1>Player Info</h1>
+			</div>
+			<div data-role="content" data-theme="a" data-inset="true" id="player-content">
+			</div>
+			<div data-role="footer" data-position="fixed" data-theme="a">
+				<h2> </h2>
+			</div>
+		</div>
+
 	<!-- Templates -->
 	<script type="text/template" id="schedule-template">
-	<table data-role="content" class="center-table" id="schedule-table" class="table-stroke">
-		<thead>
-			<tr>
-				<th>Date</th>
-				<th>Time</th>
-				<th>Opponent</th>
-				<th>GT</th>
-				<th>Opp</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-			<% _.each(games, function(game){ %>
+		<table data-role="content" class="center-table" id="schedule-table" class="table-stroke">
+			<thead>
 				<tr>
-					<td><%= game.get('date') %></td>
-					<td><%= game.get('time') %></td>
-					<td><%= game.get('home') == 1 ? game.get('opponent') : "@"+game.get('opponent') %></td>
-					<td><%= game.get('gtf') %></td>
-					<td><%= game.get('opponentf') %></td>
-					<td><a href="#" data-role="button" data-icon="info"></a></td>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Opponent</th>
+					<th>GT</th>
+					<th>Opp</th>
+					<th></th>
 				</tr>
-			<% }); %> 
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+			</tbody>
+				<% _.each(games, function(game){ %>
+					<tr>
+						<td><%= game.get('date') %></td>
+						<td><%= game.get('time') %></td>
+						<td><%= game.get('home') == 1 ? game.get('opponent') : "@"+game.get('opponent') %></td>
+						<td><%= game.get('gtf') %></td>
+						<td><%= game.get('opponentf') %></td>
+						<td><a href=<%- "#game/"+game.get('gameid') %> data-role="button" data-icon="info"></a></td>
+					</tr>
+				<% }); %> 
+			</tbody>
+		</table>
+	</script>
+	<script type="text/template" id="roster-template">
+		<table data-role="content" class="center-table" id="roster-table" class="table-stroke">
+			<thead>
+				<tr>
+					<th>Number</th>
+					<th>Name</th>
+					<th>Position</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+				<% _.each(players, function(player){ %>
+					<tr>
+						<td><%= player.get('number') %></td>
+						<td><%= player.get('name') %></td>
+						<td><%= player.get('position') %></td>
+						<td><a href=<%- "#player/"+player.get('playerid') %> data-role="button" data-icon="info"></a></td>
+					</tr>
+				<% }); %> 
+			</tbody>
+		</table>
 	</script>
 
-	<script type="text/template" id="roster-template">
-	<table data-role="content" class="center-table" id="roster-table" class="table-stroke">
-		<thead>
-			<tr>
-				<th>Number</th>
-				<th>Name</th>
-				<th>Position</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-			<% _.each(players, function(player){ %>
-				<tr>
-					<td><%= player.get('number') %></td>
-					<td><%= player.get('name') %></td>
-					<td><%= player.get('position') %></td>
-					<td><a href="#" data-role="button" data-icon="info"></a></td>
-				</tr>
-			<% }); %> 
-		</tbody>
-	</table>
+	<script type="text/template" id="player-template">
+		<div class="ui-grid-a">
+			<div class="ui-block-a">
+				<p>Image goes here</p>
+			</div>
+			<div class="ui-block-b">
+				<ul>
+					<li>Name: <%= player ? player.attributes[0]['name'] : '' %></li>
+					<li>Number: <%= player ? player.attributes[0]['number'] : '' %></li>
+					<li>Height: <%= player ? player.attributes[0]['height'] : '' %></li>
+					<li>Weight: <%= player ? player.attributes[0]['weight'] : '' %></li>
+					<li>Year: <%= player ? player.attributes[0]['year'] : '' %></li>
+					<li>Shot: <%= player ? player.attributes[0]['shot'] : '' %></li>
+					<li>Hometown: <%= player ? player.attributes[0]['hometown'] : '' %></li>
+				</ul>
+			</div>
+		</div>
 	</script>
+
+
 	<!--  JS INCLUDES  -->
 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -148,17 +199,77 @@
 
 
 	<script type="text/javascript">
+		// Prevents all anchor click handling
+        $.mobile.linkBindingEnabled = false;
+
+        // Disabling this will prevent jQuery Mobile from handling hash changes
+        $.mobile.hashListeningEnabled = false;
+
 		//AJAX PREFILTER
 		$.ajaxPrefilter(function(options, originalOptions, jqXHR){
 			options.url = "http://www.gthockey.com/api" + options.url;
 		});
-		//Collections
+		//Collections & Models
+		var Game = Backbone.Model.extend({
+			urlRoot: '/schedule.php'
+		});
+
+		var Player = Backbone.Model.extend({
+			urlRoot: '/roster.php'
+		});
 		var Games = Backbone.Collection.extend({
 			url: '/schedule.php'
 		});
 
 		var Players = Backbone.Collection.extend({
 			url: '/roster.php'
+		});
+
+		var PlayerData = Backbone.View.extend({
+			el: "#player-content",
+			render: function(options){
+				var that = this;
+				
+				if(options.id){
+					var player = new Player();
+					player.fetch({ 
+						data: $.param({ playerid: options.id}),
+						beforeSend: function(){
+							$(".ui-loader").css('display','block');
+						},
+						success: function(player){
+							$(".ui-loader").css('display','none');
+							var template = _.template($('#player-template').html(), {player: player});
+							that.$el.html(template);
+							console.log(player);
+						}
+					});
+				}
+				else{
+					var template = _.template($('#player-template').html(), {player: null});
+					that.$el.html(template);
+				}
+			}
+		});
+
+		var GameData = Backbone.View.extend({
+			el: "#game-content",
+			render: function(options){
+				var that = this;
+				if(options.id){
+					var game = new Game();
+					game.fetch({
+						data: $.param({ gameid: options.id}),
+						beforeSend: function(){
+							$(".ui-loader").css('display','block');
+						},
+						success: function(game){
+							$(".ui-loader").css('display','none');
+							console.log(game);
+						}
+					});
+				}
+			}
 		});
 
 		//Views
@@ -172,12 +283,14 @@
 						$(".ui-loader").css('display','block');
 					},
 					success: function(games){
+						console.log(games);
 						$(".ui-loader").css('display','none');
 						var template = _.template($('#schedule-template').html(), {games:games.models});
 						that.$el.html(template);
 						$('#schedule-table a[data-role=button]').button();
 					}
 				});
+
 			}
 		});
 
@@ -202,6 +315,8 @@
 			}
 		});
 
+		
+
 
 
 
@@ -210,7 +325,9 @@
 			routes: {
 				'': 'home',
 				'schedule': 'schedule',
-				'roster': 'roster'
+				'roster': 'roster',
+				'game/:id': 'showGame',
+				'player/:id': 'showPlayer'
 			}
 		});
 
@@ -220,125 +337,44 @@
 		var router = new Router();
 		var scheduleView = new Schedule();
 		var rosterView = new Roster();
+		var playerView = new PlayerData();
+		var gameView = new GameData();
 
 
 
 		//Event Handling
 		router.on('route:home',function(){
-			console.log("Home page has been loaded");
-		});
+			$.mobile.changePage("#home",{reverse:true});
+		}); 
 
 		router.on('route:schedule',function(){
 			scheduleView.render();
+
+			$.mobile.changePage("#schedule",{reverse: true});
+
+			$('#schedule').trigger('create');
 		});
 
 		router.on('route:roster',function(){
 			rosterView.render();
+			$.mobile.changePage("#roster",{reverse:true});
+			$("#roster").trigger('create');
+		});
+
+		router.on('route:showGame',function(id){
+			gameView.render(id);
+			$.mobile.changePage("#game");
+			console.log("SHOW GAME INFO FOR GAME "+id);
+		});
+
+		router.on('route:showPlayer',function(id){
+			playerView.render({id:id});
+			$.mobile.changePage("#player");
+			console.log("SHOW PLAYER INFO FOR PLAYER "+id);
 		});
 
 		Backbone.history.start();
 
-
-
-
-		// $( document ).bind( 'mobileinit', function(){
-		// 	$.mobile.loader.prototype.options.text = "loading";
-		// 	$.mobile.loader.prototype.options.textVisible = false;
-		// 	$.mobile.loader.prototype.options.theme = "a";
-		// 	$.mobile.loader.prototype.options.html = "";
-		// });
-
-		// $(document).ready(function(){
-
-		// 	$("#schedule-link").click(function(event){
-		// 		$.ajax({
-		// 			type: "GET",
-		// 			url: "http://www.gthockey.com/api/schedule.php",
-		// 			dataType: "jsonp",
-		// 			cache: "false",
-		// 			crossDomain: "true",
-		// 			processData: "true",
-		// 			beforeSend: function(){
-		// 				//$.mobile.loading('show');
-		// 				$(".ui-loader").css('display','block');
-		// 			},
-		// 			complete: function(){
-		// 				//$.mobile.loading('hide');
-		// 				$(".ui-loader").css('display','none');
-		// 			},
-		// 			success: function(data){
-		// 				//for each item : data
-		// 					//create <td>date
-		// 					//create <th>time
-		// 					//create 
-
-		// 				fillScheduleRows(data);
-		// 			},
-		// 			error: function(XMLHttpRequest, textStatus, errorThrown){
-		// 				console.log("ERROR!");
-		// 			}
-		// 		});	
-		// 	});
-		// 	$("#roster-link").click(function(event){
-		// 		$.ajax({
-		// 			type: "GET",
-		// 			url: "http://www.gthockey.com/api/roster.php",
-		// 			dataType: "jsonp",
-		// 			cache: "false",
-		// 			crossDomain: "true",
-		// 			processData: "true",
-		// 			beforeSend: function(){
-		// 				//$.mobile.loading('show');
-		// 				$(".ui-loader").css('display','block');
-		// 			},
-		// 			complete: function(){
-		// 				//$.mobile.loading('hide');
-		// 				$(".ui-loader").css('display','none');
-		// 			},
-		// 			success: function(data){
-		// 				console.log(data);
-		// 				//for each item : data
-		// 					//create <td>date
-		// 					//create <th>time
-		// 					//create 
-		// 				fillRosterRows(data);
-
-		// 			},
-		// 			error: function(XMLHttpRequest, textStatus, errorThrown){
-		// 				console.log("ERROR!");
-		// 				console.log(XMLHttpRequest);
-		// 				console.log(textStatus);
-		// 				console.log(errorThrown);
-		// 			}
-		// 		});	
-		// 	});
-
-		// 	$("#statistics-link").click(function(event){
-		// 		console.log("Ajax Request for Statistics Data");
-		// 	});
-
-		// 	function fillScheduleRows(jsonData){
-		// 		$.each(jsonData, function(i,item){
-
-		// 			//append a tr to the tbod
-		// 			if(item.home == 0){
-		// 				var opponent = item.opponent;
-		// 			}
-		// 			else{
-		// 				var opponent = "@"+item.opponent;
-		// 			}
-		// 			//append the row to the table
-		// 			$("#schedule-table tbody:last").append("<tr><th data-priority=1>"+item.date+"</th><td data-priority=2>"+item.time+"</td><td data-priority=3>"+opponent+"</td><td data-priority=4>TBA</td></tr>");
-		// 		});
-		// 	}
-
-		// 	function fillRosterRows(jsonData){
-		// 		$.each(jsonData, function(i,item){
-		// 			//append the row to the table
-		// 			$("#roster-table tbody:last").append("<tr><th data-priority=1>"+item.number+"</th><td data-priority=2>"+item.name+"</td><td data-priority=3>"+item.position+"</td></tr>");
-		// 		});
-		// 	}
-		// });
 	</script>
 	</body>
 </html>
