@@ -16,8 +16,8 @@
 
 
 		<div id="home" data-role="page" data-theme="a">
-			<div data-role="header" data-position="inline">
-				<h1>Georgia Tech Hockey</h1>
+			<div data-position="inline">
+				<img id="gt-logo" src="http://www.gthockey.com/images/logo.png">
 			</div>
 			<div data-role="content" data-theme="a">
 				<ul id="team-list" data-role="listview" data-inset="true">
@@ -169,22 +169,40 @@
 	</script>
 
 	<script type="text/template" id="player-template">
-		<div class="ui-grid-a">
+		<div class="ui-grid-solo">
 			<div class="ui-block-a">
-				<p>Image goes here</p>
-			</div>
-			<div class="ui-block-b">
-				<ul>
-					<li>Name: <%= player ? player.attributes[0]['name'] : '' %></li>
-					<li>Number: <%= player ? player.attributes[0]['number'] : '' %></li>
-					<li>Height: <%= player ? player.attributes[0]['height'] : '' %></li>
-					<li>Weight: <%= player ? player.attributes[0]['weight'] : '' %></li>
-					<li>Year: <%= player ? player.attributes[0]['year'] : '' %></li>
-					<li>Shot: <%= player ? player.attributes[0]['shot'] : '' %></li>
-					<li>Hometown: <%= player ? player.attributes[0]['hometown'] : '' %></li>
-				</ul>
+				<img id="player-img" src="http://www.gthockey.com/photos/mugs/2013-2014/<%= player.attributes[0]['photo'] %>">
 			</div>
 		</div>
+		<div class="ui-grid-solo">
+			<div class="ui-block-a" id="player-info-block">
+				<h4>Name: <%= player ? player.attributes[0]['name'] : '' %></h4>
+				<h4>Number: <%= player ? player.attributes[0]['number'] : '' %></h4>
+				<h4>Height: <%= player ? player.attributes[0]['height'] : '' %></h4>
+				<h4>Weight: <%= player ? player.attributes[0]['weight'] : '' %></h4>
+				<h4>Year: <%= player ? player.attributes[0]['year'] : '' %></h4>
+				<h4>Shot: <%= player ? player.attributes[0]['shot'] : '' %></h4>
+				<h4>Hometown: <%= player ? player.attributes[0]['hometown'] : '' %></h4>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/template" id="game-template">
+		<div id="game-img-block" class="ui-grid-b">
+			<div class="ui-block-a">
+				<img id="team-logo" src=<%= game.attributes[0]['home'] == 0 ? "http://www.gthockey.com/photos/logos/thumbs/gt.png" : "http://www.gthockey.com/photos/logos/thumbs/"+game.attributes[0]['teamlogo'] %>>
+			</div>
+			<div class="ui-block-b"><h4>v.</h4></div>
+			<div class="ui-block-c">
+				<img id="team-logo" src=<%= game.attributes[0]['home'] == 1 ? "http://www.gthockey.com/photos/logos/thumbs/gt.png" : "http://www.gthockey.com/photos/logos/thumbs/"+game.attributes[0]['teamlogo'] %>></div>
+		</div>
+		<div id="game-info-block" class="ui-grid-solo">
+			<h4>DATE: <%= game.attributes[0]['date'] %></h4>
+			<h4>TIME: <%= game.attributes[0]['time'] %></h4>
+			<h4>LOCATION: <%= game.attributes[0]['location'] %></h4>
+			<h4>Result: <%= game.attributes[0]['home'] == 1 ? game.attributes[0]['opponentf']+"-"+game.attributes[0]['gtf'] : game.attributes[0]['gtf']+"-"+game.attributes[0]['opponentf'] %></h4>
+		</div>
+
 	</script>
 
 
@@ -265,6 +283,8 @@
 						},
 						success: function(game){
 							$(".ui-loader").css('display','none');
+							var template = _.template($('#game-template').html(), {game: game});
+							that.$el.html(template);
 							console.log(game);
 						}
 					});
@@ -362,7 +382,7 @@
 		});
 
 		router.on('route:showGame',function(id){
-			gameView.render(id);
+			gameView.render({id:id});
 			$.mobile.changePage("#game");
 			console.log("SHOW GAME INFO FOR GAME "+id);
 		});

@@ -9,3 +9,33 @@
 .center-table > td{
 	text-align: center;
 }
+
+#player-img{
+	margin: 0 auto;
+	display: block;
+	width: 75%;
+}
+
+#player-info-block{
+	text-align: center;
+}
+
+#gt-logo{
+	margin:0 auto;
+	display: block;
+	width: 50%;
+}
+
+#team-logo{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#game-img-block{
+	text-align: center;
+}
+
+#game-info-block{
+	text-align: center;
+}
