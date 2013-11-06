@@ -8,26 +8,16 @@
 		<link rel="stylesheet" href="themes/gthockey.css" />
 		<link rel="stylesheet" href="css/custom.css"/>
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.css" />
-		<link rel="stylesheet" href="themes/jqm-icon-pack-2.0-original.css" />
 		
 	</head>
 
 
 	<body>
 
-		<div id="fb-root"></div>
-		<script>(function(d, s, id) {
-		  var js, fjs = d.getElementsByTagName(s)[0];
-		  if (d.getElementById(id)) return;
-		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-		  fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));</script>
-
 
 		<div id="home" data-role="page" data-theme="a">
-			<div data-position="inline">
-				<img id="gt-logo" src="http://www.gthockey.com/images/logo.png">
+			<div data-role="header" data-position="inline">
+				<h1>Georgia Tech Hockey</h1>
 			</div>
 			<div data-role="content" data-theme="a">
 				<ul id="team-list" data-role="listview" data-inset="true">
@@ -92,53 +82,7 @@
 				<h1>About</h1>
 			</div>
 			<div data-role="content" data-theme="a" data-inset="true">
-				<div id="gt-hockey-summary" style="text-align:center;">
-					<h2>About GT Hockey</h2>
-					<div>
-						<p align="justify">
-							Founded in 1973, the Georgia Tech Ice Hockey Team is one of the biggest and most established sport clubs at the Georgia Institute of Technology. The team competes against teams from all over the east coast during the regular season. As part of the American Collegiate Hockey Association, the Jackets look to take their season to the national tournament on a yearly basis.
-						</p>
-					</div>
-				</div>
-				<div id="contact-dev" style="text-align:center;">
-					<h2>About This Application</h2>
-					<p align="justify">
-						This application was developed for GT Hockey by Mike Sandt. He is a current player and a 5th year Computer Science Major at Georgia Tech. If you have any suggestions or want to contribute please let me know. I am also open to freelance work as well. 
-					</p>
-					<a data-role="button" data-icon="email" href="mailto:michael.sandt@gmail.com">Contact Mike!</a>
-				</div>
-			</div>
-			<div data-role="footer" data-position="fixed" data-theme="a">
-				<h2> </h2>
-			</div>
-		</div>
-
-		<div id="contact" data-role="page" data-theme="a" data-add-back-btn="true">
-			<div data-role="header" data-position="inline">
-				<a href="#" data-rel="back" data-icon="arrow-l">Back</a>
-				<h1>Contact</h1>
-			</div>
-			<div data-role="content" data-theme="a" data-inset="true">
-				<div id="contact-club" style="text-align:center;">
-					<h2>Questions About the Team?</h2>
-					<a data-role="button" data-icon="email" href="mailto:georgiatechhockey@gmail.com">Email Us!</a>
-					<h2>Like us on Facebook!</h2>
-					<div>
-						<div class="fb-like-box" data-href="https://www.facebook.com/pages/Georgia-Tech-Hockey/85852244494" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
-					</div>
-					<h2>Follow Us on Twitter!</h2>
-					<a class="twitter-timeline" href="https://twitter.com/GT_Hockey" data-widget-id="299732266605748224">Tweets by @GT_Hockey</a>
-                    <script>!
-                      function(d,s,id){
-                        var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-                        if(!d.getElementById(id)){
-                          js=d.createElement(s);js.id=id;
-                          js.src=p+"://platform.twitter.com/widgets.js";
-                          fjs.parentNode.insertBefore(js,fjs);
-                        }
-                      }(document,"script","twitter-wjs");
-                    </script>
-				</div>
+				<p>Georgia Tech Ice Hockey is a Student Run organization founded in 1973.</p>
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="a">
 				<h2> </h2>
@@ -152,6 +96,7 @@
 				<h1>Game Info</h1>
 			</div>
 			<div data-role="content" data-theme="a" data-inset="true" id="game-content">
+				<p>Game Info Goes Here</p>
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="a">
 				<h2> </h2>
@@ -193,7 +138,7 @@
 						<td><%= game.get('home') == 1 ? game.get('opponent') : "@"+game.get('opponent') %></td>
 						<td><%= game.get('gtf') %></td>
 						<td><%= game.get('opponentf') %></td>
-						<td><a href=<%- "#game/"+game.get('gameid') %> data-role="button" data-icon="info2"></a></td>
+						<td><a href=<%- "#game/"+game.get('gameid') %> data-role="button" data-icon="info"></a></td>
 					</tr>
 				<% }); %> 
 			</tbody>
@@ -216,7 +161,7 @@
 						<td><%= player.get('number') %></td>
 						<td><%= player.get('name') %></td>
 						<td><%= player.get('position') %></td>
-						<td><a href=<%- "#player/"+player.get('playerid') %> data-role="button" data-icon="info2"></a></td>
+						<td><a href=<%- "#player/"+player.get('playerid') %> data-role="button" data-icon="info"></a></td>
 					</tr>
 				<% }); %> 
 			</tbody>
@@ -224,40 +169,22 @@
 	</script>
 
 	<script type="text/template" id="player-template">
-		<div class="ui-grid-solo">
+		<div class="ui-grid-a">
 			<div class="ui-block-a">
-				<img id="player-img" src="http://www.gthockey.com/photos/mugs/2013-2014/<%= player.attributes[0]['photo'] %>">
+				<p>Image goes here</p>
+			</div>
+			<div class="ui-block-b">
+				<ul>
+					<li>Name: <%= player ? player.get('name') : '' %></li>
+					<li>Number: <%= player ? player.get('number') : '' %></li>
+					<li>Height: <%= player ? player.get('height') : '' %></li>
+					<li>Weight: <%= player ? player.get('weight') : '' %></li>
+					<li>Year: <%= player ? player.get('year') : '' %></li>
+					<li>Shot: <%= player ? player.get('shot') : '' %></li>
+					<li>Hometown: <%= player ? player.get('hometown') : '' %></li>
+				</ul>
 			</div>
 		</div>
-		<div class="ui-grid-solo">
-			<div class="ui-block-a" id="player-info-block">
-				<h4>Name: <%= player ? player.attributes[0]['name'] : '' %></h4>
-				<h4>Number: <%= player ? player.attributes[0]['number'] : '' %></h4>
-				<h4>Height: <%= player ? player.attributes[0]['height'] : '' %></h4>
-				<h4>Weight: <%= player ? player.attributes[0]['weight'] : '' %></h4>
-				<h4>Year: <%= player ? player.attributes[0]['year'] : '' %></h4>
-				<h4>Shot: <%= player ? player.attributes[0]['shot'] : '' %></h4>
-				<h4>Hometown: <%= player ? player.attributes[0]['hometown'] : '' %></h4>
-			</div>
-		</div>
-	</script>
-
-	<script type="text/template" id="game-template">
-		<div id="game-img-block" class="ui-grid-b">
-			<div class="ui-block-a">
-				<img id="team-logo" src=<%= game.attributes[0]['home'] == 0 ? "http://www.gthockey.com/photos/logos/thumbs/gt.png" : "http://www.gthockey.com/photos/logos/thumbs/"+game.attributes[0]['teamlogo'] %>>
-			</div>
-			<div class="ui-block-b"><h4>v.</h4></div>
-			<div class="ui-block-c">
-				<img id="team-logo" src=<%= game.attributes[0]['home'] == 1 ? "http://www.gthockey.com/photos/logos/thumbs/gt.png" : "http://www.gthockey.com/photos/logos/thumbs/"+game.attributes[0]['teamlogo'] %>></div>
-		</div>
-		<div id="game-info-block" class="ui-grid-solo">
-			<h4>DATE: <%= game.attributes[0]['date'] %></h4>
-			<h4>TIME: <%= game.attributes[0]['time'] %></h4>
-			<h4>LOCATION: <%= game.attributes[0]['location'] %></h4>
-			<h4>Result: <%= game.attributes[0]['home'] == 1 ? game.attributes[0]['opponentf']+"-"+game.attributes[0]['gtf'] : game.attributes[0]['gtf']+"-"+game.attributes[0]['opponentf'] %></h4>
-		</div>
-
 	</script>
 
 
@@ -311,6 +238,7 @@
 							$(".ui-loader").css('display','block');
 						},
 						success: function(player){
+							console.log(player.get('name'));
 							$(".ui-loader").css('display','none');
 							var template = _.template($('#player-template').html(), {player: player});
 							that.$el.html(template);
@@ -338,8 +266,6 @@
 						},
 						success: function(game){
 							$(".ui-loader").css('display','none');
-							var template = _.template($('#game-template').html(), {game: game});
-							that.$el.html(template);
 							console.log(game);
 						}
 					});
@@ -402,9 +328,7 @@
 				'schedule': 'schedule',
 				'roster': 'roster',
 				'game/:id': 'showGame',
-				'player/:id': 'showPlayer',
-				'contact': 'contact',
-				'about': 'about'
+				'player/:id': 'showPlayer'
 			}
 		});
 
@@ -439,7 +363,7 @@
 		});
 
 		router.on('route:showGame',function(id){
-			gameView.render({id:id});
+			gameView.render(id);
 			$.mobile.changePage("#game");
 			console.log("SHOW GAME INFO FOR GAME "+id);
 		});
@@ -448,16 +372,6 @@
 			playerView.render({id:id});
 			$.mobile.changePage("#player");
 			console.log("SHOW PLAYER INFO FOR PLAYER "+id);
-		});
-
-		router.on('route:contact',function(){
-			$.mobile.changePage("#contact");
-			$("#contact").trigger('create');
-		});
-
-		router.on('route:about',function(){
-			$.mobile.changePage("#about");
-			$("#about").trigger('create');
 		});
 
 		Backbone.history.start();
