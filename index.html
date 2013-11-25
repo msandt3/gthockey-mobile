@@ -33,12 +33,10 @@
 				<ul id="team-list" data-role="listview" data-inset="true">
 				    <li><a id="schedule-link" href="#schedule">Schedule</a></li>
 				    <li><a id="roster-link" href="#roster">Roster</a></li>
-				    <li><a id="statistics-link" href="#statistics">Statistics</a></li>
 				</ul>
 				<ul id="contact-list" data-role="listview" data-inset="true">
 					<li><a id="about-link" href="#about">About</a></li>
 					<li><a id="contact-link" href="#contact">Contact</a></li>
-					<li><a id="disclaimer-link" href="#disclaimer">Disclaimer</a></li>
 				</ul>
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="a">
@@ -103,7 +101,7 @@
 				<div id="contact-dev" style="text-align:center;">
 					<h2>About This Application</h2>
 					<p align="justify">
-						This application was developed for GT Hockey by Mike Sandt. He is a current player and a 5th year Computer Science Major at Georgia Tech. If you have any suggestions or want to contribute please let me know. I am also open to freelance work as well. 
+						This application was developed for GT Hockey by Mike Sandt. He is a current player and a 5th year Computer Science Major at Georgia Tech.
 					</p>
 					<a data-role="button" data-icon="email" href="mailto:michael.sandt@gmail.com">Contact Mike!</a>
 				</div>
@@ -185,9 +183,8 @@
 				</tr>
 			</thead>
 			<tbody>
-			</tbody>
 				<% _.each(games, function(game){ %>
-					<tr>
+					<tr id='schedule-row'>
 						<td><%= game.get('date') %></td>
 						<td><%= game.get('time') %></td>
 						<td><%= game.get('home') == 1 ? game.get('opponent') : "@"+game.get('opponent') %></td>

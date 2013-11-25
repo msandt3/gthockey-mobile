@@ -23,7 +23,7 @@
 #gt-logo{
 	margin:0 auto;
 	display: block;
-	width: 50%;
+	width: 75%;
 }
 
 #team-logo{
@@ -58,4 +58,15 @@ https://developers.facebook.com/docs/reference/plugins/like-box/
 #twitter-widget-0{
 	width: 100% !important;
 	height: 300px;
+}
+
+#schedule-row td{
+	padding-top:10px;
+}
+
+thead th {
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+}
+tbody th, tbody td {
+  border-bottom: 1px solid rgba(0, 0, 0, .15);
 }
