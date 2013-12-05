@@ -268,7 +268,13 @@
 	<script src="phonegap.js"></script>
 	<!-- END JS INCLUDES -->
 
-
+	<script type="text/javascript">
+      $( document ).bind( "mobileinit", function() {
+        $.support.cors                 = true;
+        $.mobile.allowCrossDomainPages = true;
+        $.mobile.pushStateEnabled      = false;
+      });
+	</script>
 	<script type="text/javascript">
 		// Prevents all anchor click handling
         $.mobile.linkBindingEnabled = false;
